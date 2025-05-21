@@ -194,8 +194,8 @@ def engine(k, num_operations, graph, times, num_stations=10,
     print(f"Cycle time of the best solution: {max(all_operator_times)}")
 
 
-    print(f"Station times: {[i+1 for i in all_station_times]}")
-    print(f"Operator times: {[i+1 for i in all_operator_times]}")
+    print(f"Station times: {[i for i in all_station_times]}")
+    print(f"Operator times: {[i for i in all_operator_times]}")
 
 
     return population[0], best, mean
