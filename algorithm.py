@@ -106,16 +106,19 @@ def engine(k, num_operations, graph, times, num_stations=10,
         perc_mat (float): Percentage of the best individuals of the current generation that will have a chance to be
                           selected as a parent. Default to 0.1
         sel_type (String): Selection method that will be used.
-                           OPTIONS: - roulette (default)
+                           OPTIONS:
+                                    - roulette (default)
                                     - tournament
                                     - rank
         cross_type (String): Crossover operator that will be used
-                             OPTIONS : - SP -> Single point crossover (default)
-                                       - DP -> Double point crossover
-                                       - UX -> Uniform crossover
+                             OPTIONS :
+                                    - SP -> Single point crossover (default)
+                                    - DP -> Double point crossover
+                                    - UX -> Uniform crossover
         mutation_rate (float): Mutation rate. Default to 0.05
         mut_type (String): Mutation operator
-                           OPTIONS: - random -> Random mutation (gives a random value to a random element) (default)
+                           OPTIONS:
+                                    - random -> Random mutation (gives a random value to a random element) (default)
                                     - heur -> Heuristic mutation
                                     - swap -> Swap mutation (select 2 elements and swaps them)
                                     - scramble -> scramble subset
@@ -147,7 +150,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         best.append(population[0].fitness)
         mean.append(reduce(lambda x, y: x + y.fitness, population, 0)/pop_size)
         # Break after:
-        if population[0].gen < i - 10:
+        if population[0].gen < i - 25:
             break
 
         # Elitism

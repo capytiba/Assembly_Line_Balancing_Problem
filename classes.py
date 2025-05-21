@@ -63,7 +63,7 @@ class Individual:
             for neighbor in graph[op]:
                 if self.code[neighbor] < self.code[op]:
                     if is_last:
-                        print(f"{op+1} (station {self.code[op]}) should come before {neighbor+1} (station {self.code[neighbor]})")
+                        print(f"{op+1} (station {self.code[op]+1}) should come before {neighbor+1} (station {self.code[neighbor]+1})")
                     violations += 1
         return violations
 
@@ -91,10 +91,13 @@ class Individual:
         # self.fitness = max(time_op) + (k * self.calc_violations(graph)) if (scalling_factor is 0) else
         # exp(-scalling_factor * (max(time_op) + k * self.calc_violations(graph)))
 
-        # self.fitness = (10000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False) + max(time_operator)
-        self.fitness = max(time_operator) + (1000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
+        if gen <= 15:
+            self.fitness = (10000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False) + max(time_operator)
+        else:
+            self.fitness = max(time_operator) + (1000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
+
         if max(time_op) > max(time_operator):
-            self.fitness += 100000
+            self.fitness += 500
         if self.fitness == 0:
             self.fitness = max(time_operator)
 
