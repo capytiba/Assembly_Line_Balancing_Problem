@@ -86,12 +86,13 @@ def engine(k, num_operations, graph, times, num_stations=10,
            pop_size=100, iterations=100,
            perc_elitism=0.1, perc_mat=0.1, sel_type='roulette', cross_type='SP',
            mutation_rate=0.05, mut_type='random',
-           fixed_operations=None,
+           fixed_operations=None, free_operations=None
            ):
     """
     Performs the genetic algorithm
 
     Args:
+        free_operations: a list of free operations
         fixed_operations: matrix of fixed operations
         k (float): Time of the slowest station
         num_operations (int): Number of operations
@@ -146,9 +147,8 @@ def engine(k, num_operations, graph, times, num_stations=10,
         best.append(population[0].fitness)
         mean.append(reduce(lambda x, y: x + y.fitness, population, 0)/pop_size)
         # Break after:
-        if population[0].gen < i - 50:
+        if population[0].gen < i - 10:
             break
-
 
         # Elitism
         new_generation = population[:int(perc_elitism*pop_size)]
@@ -171,9 +171,9 @@ def engine(k, num_operations, graph, times, num_stations=10,
             for indv in new_generation[-mut:]:
                 if random() < mutation_rate:
                     if mut_type == 'heur':
-                        indv.mutate(graph)
+                        indv.mutate(graph, free_operations)
                     else:
-                        indv.mutate()
+                        indv.mutate(free_operations)
 
         # Evaluation
         population = rank_population(k, graph, times, new_generation, i)

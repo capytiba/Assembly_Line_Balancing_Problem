@@ -91,7 +91,7 @@ class Individual:
         # self.fitness = max(time_op) + (k * self.calc_violations(graph)) if (scalling_factor is 0) else
         # exp(-scalling_factor * (max(time_op) + k * self.calc_violations(graph)))
 
-        # self.fitness = (10000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False) + zmax(time_operator)
+        # self.fitness = (10000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False) + max(time_operator)
         self.fitness = max(time_operator) + (1000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
         if max(time_op) > max(time_operator):
             self.fitness += 100000
@@ -102,21 +102,21 @@ class Individual:
 
         return self.fitness
 
-    def mutate_random(self):
-        self.code[randint(0, self.operations - 1)] = randint(0, self.stations - 1)
+    def mutate_random(self, free_operations):
+        self.code[ free_operations[randint(0, len(free_operations) - 1)] ] = randint(0, self.stations - 1)
         self.fitness = 0
 
-    def mutate_heur(self, graph):
+    def mutate_heur(self, graph, free_operations):
 
         has_changed = False
-        for op in range(self.operations):
+        for op in free_operations:
             for neighbor in graph[op]:
                 if self.code[neighbor] < self.code[op]:
                     self.code[op] = randint(0, self.stations - 1)
                     has_changed = True
 
         if not has_changed:
-            self.mutate_random()
+            self.mutate_random(free_operations)
         else:
             self.fitness = 0
 
