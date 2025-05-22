@@ -123,6 +123,7 @@ class Individual:
         else:
             self.fitness = 0
 
+
     def mutate_swap(self):
 
         i = randint(0, self.operations - 1)

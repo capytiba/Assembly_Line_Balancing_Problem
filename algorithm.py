@@ -6,6 +6,8 @@ from functools import reduce
 import numpy as np
 import matplotlib.pyplot as plt
 from random import randint
+import csv
+import os
 
 def gen_indv(cross_type, mut_type, num_stations, num_operations, fixed_operations):
     # print(f"Lenth of fixed: {len(fixed_operations)}")
@@ -184,12 +186,14 @@ def engine(k, num_operations, graph, times, num_stations=10,
         all_operator_times = population[0].get_operator_time(times)
         print(f"Gen {i}; Best Fitness: {population[0].fitness}; Cycle time: {max(all_operator_times)}; Max station time: {max(all_station_times)}")
 
-    if (population[0].calc_violations(graph, True)) > 0:
+    violations = population[0].calc_violations(graph, True)
+    if violations > 0:
         print("SOLUCION NO VALIDA: ", population[0].calc_violations(graph, False))
     else:
         print("No violations")
 
-    print(f"Parameters of the best solution : {[i+1 for i in population[0].code]}")
+
+    print(f"Code of the best solution : {[i+1 for i in population[0].code]}")
     print(f"Best solution reached after {population[0].gen} generations.")
     print(f"Fitness of the best solution : {population[0].fitness}")
     all_station_times = population[0].get_station_time(times)
@@ -197,9 +201,53 @@ def engine(k, num_operations, graph, times, num_stations=10,
     print(f"Cycle time of the best solution: {max(all_operator_times)}")
 
 
-    print(f"Station times: {[i for i in all_station_times]}")
-    print(f"Operator times: {[i for i in all_operator_times]}")
+    print(f"Station times: {[all_station_times]}")
+    print(f"Operator times: {[all_operator_times]}") # i for i in all_operator_times]}")
 
+
+    # This is to save all the parameters and results in a csv file, so it can be checked later:
+
+    # Define data as a dictionary (keys = CSV column headers)
+    data = {
+        'k': k,
+        #'num_operations': num_operations,
+        #'graph': graph,
+        #'times': times,
+        #'num_stations': num_stations,
+        'pop_size': pop_size,
+        'iterations': iterations,
+        'perc_elitism': perc_elitism,
+        'perc_mat': perc_mat,
+        'sel_type': sel_type,
+        'cross_type': cross_type,
+        'mutation_rate': mutation_rate,
+        'mut_type': mut_type,
+        #'fixed_operations': fixed_operations,
+        #'free_operations': free_operations,
+        'best_solution_fitness': population[0].fitness,
+        'cycle_time': max(all_operator_times),
+        'station_times': all_station_times,
+        'operator_times': all_operator_times,
+        'violations': violations,
+        'best_solution': population[0].code,
+    }
+
+    filename = 'resultados.csv'
+
+    # Check if the file exists and is not empty
+    file_exists = os.path.isfile(filename)
+    file_not_empty = file_exists and os.path.getsize(filename) > 0
+
+    # Open the file in append mode
+    with open(filename, 'a', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=data.keys())
+
+        # Write header only if the file is new or empty
+        if not file_exists or not file_not_empty:
+            writer.writeheader()
+
+        # Append the data as a new row
+        writer.writerow(data)
 
     return population[0], best, mean
 
