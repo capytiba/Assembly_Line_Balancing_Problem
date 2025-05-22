@@ -1,5 +1,9 @@
-from algorithm import engine, read_file, txt_to_matrix
+from algorithm import engine, read_file, read_operations_file
 
 if __name__ == '__main__':
-    fixed_operation = txt_to_matrix('fixed_operations.txt')
-    print(f"Fixed operations: {fixed_operation}")
+
+    possible_stations = read_operations_file('possible_stations.txt')
+    for i in possible_stations:
+        print(len(i))
+
+    print(len(possible_stations))

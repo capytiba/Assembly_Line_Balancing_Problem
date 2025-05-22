@@ -202,8 +202,20 @@ def engine(k, num_operations, graph, times, num_stations=10,
 
 
     print(f"Station times: {[all_station_times]}")
-    print(f"Operator times: {[all_operator_times]}") # i for i in all_operator_times]}")
+    print(f"Operator times: {[all_operator_times]}")
+    """
+    station = [0] * num_stations
+    for i in population[0].code:
+        station[population[0].code[i]] = i
+    print(f"Stations: {station}")
+    """
+    # Create a matrix with 11 empty rows (0-10)
+    station = [[] for _ in range(num_stations)]
 
+    # Populate the matrix with indices
+    for index, number in enumerate(population[0].code):
+        station[number].append(index)
+    print(f"Stations: {station}")
 
     # This is to save all the parameters and results in a csv file, so it can be checked later:
 
@@ -896,5 +908,17 @@ def read_fixed_op_file(file_path):
             if stripped_line:
                 values = stripped_line.split(',')
                 row = [int(values[0])-1, int(values[1])-1]
+                matrix.append(row)
+    return matrix
+
+# David, please unify them.
+def read_operations_file(file_path):
+    matrix = []
+    with open(file_path, 'r') as file:
+        for line in file:
+            stripped_line = line.strip()
+            if stripped_line:
+                values = stripped_line.split(',')
+                row = [int(v)-1 for v in values]
                 matrix.append(row)
     return matrix

@@ -29,7 +29,7 @@ class Individual:
     stations = 0
     gen = 0
 
-    def __init__(self, operations, stations, code, cross_type='SP', mut_type='random'):
+    def __init__(self, operations, stations, code, cross_type='SP', mut_type='heur'):
         self.operations = operations
         self.stations = stations
         self.code = code
@@ -106,16 +106,18 @@ class Individual:
         return self.fitness
 
     def mutate_random(self, free_operations):
-        self.code[ free_operations[randint(0, len(free_operations) - 1)] ] = randint(0, self.stations - 1)
+        random_operation = randint(0, len(free_operations) - 1)
+        self.code[ free_operations[random_operation][0] ] = free_operations[random_operation][randint(1, len(free_operations[random_operation])-1)]
+
         self.fitness = 0
 
     def mutate_heur(self, graph, free_operations):
 
         has_changed = False
         for op in free_operations:
-            for neighbor in graph[op]:
-                if self.code[neighbor] < self.code[op]:
-                    self.code[op] = randint(0, self.stations - 1)
+            for neighbor in graph[op[0]]:
+                if self.code[neighbor] < self.code[op[0]]:
+                    self.code[op[0]] = op[ randint(1, len(op)-1) ]
                     has_changed = True
 
         if not has_changed:
@@ -125,7 +127,7 @@ class Individual:
 
 
     def mutate_swap(self):
-
+        print("Mutate Swap")
         i = randint(0, self.operations - 1)
         j = randint(0, self.operations - 1)
 
@@ -133,6 +135,7 @@ class Individual:
         self.fitness = 0
 
     def mutate_scramble(self):
+        print("Mutate Scramble")
 
         i = randint(0, self.operations)
         j = randint(0, self.operations)
@@ -144,6 +147,7 @@ class Individual:
         self.fitness = 0
 
     def mutate_inversion(self):
+        print("Mutate Inversion")
 
         i = randint(0, self.operations)
         j = randint(0, self.operations)
@@ -154,8 +158,9 @@ class Individual:
         self.code[i:j].reverse()
         self.fitness = 0
 
-    def crossover_SP(self, indv):
 
+    def crossover_SP(self, indv):
+        #print("Crossover_SP")
         p = randint(0, self.operations)
 
         code_c1 = self.code[:p] + indv.code[p:]
@@ -171,7 +176,7 @@ class Individual:
         return ch1, ch2
 
     def crossover_DP(self, indv):
-
+        print("Crossover_DP")
         i = randint(0, self.operations)
         j = randint(0, self.operations)
         if i > j:
@@ -190,7 +195,7 @@ class Individual:
         return ch1, ch2
 
     def crossover_UX(self, indv):
-
+        print("Crossover_UX")
         code_c1 = [0] * self.operations
         code_c2 = [0] * self.operations
 
