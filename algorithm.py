@@ -900,7 +900,7 @@ def get_best_num_stations_effort(k, num_operations, graph, times, i=1, j=10):
     print('Individue: ', best_indv)
     return num_stations, best_indv, my_best
 
-
+"""
 def read_fixed_op_file(file_path):
     matrix = []
     with open(file_path, 'r') as file:
@@ -911,8 +911,9 @@ def read_fixed_op_file(file_path):
                 row = [int(values[0])-1, int(values[1])-1]
                 matrix.append(row)
     return matrix
+"""
 
-# David, please unify them.
+# David, please unify them. Done
 def read_operations_file(file_path):
     matrix = []
     with open(file_path, 'r') as file:
