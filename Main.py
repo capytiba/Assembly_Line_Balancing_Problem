@@ -12,6 +12,7 @@ if __name__ == '__main__':
     print(f"Fixed_operations: {fixed_operations}")
     # print(f"list_of_fixed: {list_of_fixed}")
     print(f"Free operations: {free_operations}")
+    print(f"Size of free operations: {len(free_operations)}")
 
 
     engine(k, num_op, graph, times, num_stations=num_stations,

@@ -80,8 +80,6 @@ class Individual:
         Returns:
             (float)
         """
-
-
         time_op = self.get_station_time(times) # time of station **including** automatic-operation time
         time_operator = self.get_operator_time(times) # time of operator **excluding** automatic-operation time
 
@@ -91,13 +89,13 @@ class Individual:
         # self.fitness = max(time_op) + (k * self.calc_violations(graph)) if (scalling_factor is 0) else
         # exp(-scalling_factor * (max(time_op) + k * self.calc_violations(graph)))
 
-        if gen <= 15:
-            self.fitness = (10000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False) + max(time_operator)
-        else:
-            self.fitness = max(time_operator) + (1000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
+        #if gen <= 15:
+        #    self.fitness = (10000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False) + max(time_operator)
+        #else:
+        self.fitness = max(time_operator) + (100000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
 
         if max(time_op) > max(time_operator):
-            self.fitness += 500
+            self.fitness += 50000
         if self.fitness == 0:
             self.fitness = max(time_operator)
 

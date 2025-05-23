@@ -185,6 +185,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         all_station_times = population[0].get_station_time(times)
         all_operator_times = population[0].get_operator_time(times)
         print(f"Gen {i}; Best Fitness: {population[0].fitness}; Cycle time: {max(all_operator_times)}; Max station time: {max(all_station_times)}")
+        print(f"Best individual: {population[0].code}")
 
     violations = population[0].calc_violations(graph, True)
     if violations > 0:
