@@ -3,7 +3,7 @@ from typing import Any
 from algorithm import engine, read_file, read_operations_file
 
 if __name__ == '__main__':
-    k, num_op, graph, times = read_file('dados_marqueze2.txt')
+    k, num_op, graph, times = read_file('dados_marqueze_ponderado.txt')
     num_stations = 11
     fixed_operations = read_operations_file('fixed_operations.txt') # gets a matrix with the fixed operations and the assigned stations
     free_operations = read_operations_file('possible_stations.txt')
@@ -13,10 +13,11 @@ if __name__ == '__main__':
     # print(f"list_of_fixed: {list_of_fixed}")
     print(f"Free operations: {free_operations}")
     print(f"Size of free operations: {len(free_operations)}")
+    print("----------")
 
 
     engine(k, num_op, graph, times, num_stations=num_stations,
-           pop_size=1000, iterations=10000,
+           pop_size=10000, iterations=1000,
            perc_elitism=10 / 100, perc_mat=0.8, sel_type='roulette', cross_type='SP',
            mutation_rate=0.25, mut_type='random',
            fixed_operations=fixed_operations, free_operations=free_operations)

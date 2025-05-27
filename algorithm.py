@@ -9,21 +9,25 @@ from random import randint
 import csv
 import os
 
-def gen_indv(cross_type, mut_type, num_stations, num_operations, fixed_operations):
-    # print(f"Lenth of fixed: {len(fixed_operations)}")
-    code = [randint(0, num_stations - 1) for i in range(num_operations)]
+def gen_indv(cross_type, mut_type, num_stations, num_operations, fixed_operations, free_operations):
+    # print(f"Length of fixed: {len(fixed_operations)}")
+    #code = [randint(0, num_stations - 1) for i in range(num_operations)]
+    code = [0] * num_operations
     for i in range(len(fixed_operations)):
         code[fixed_operations[i][0]] = fixed_operations[i][1]
+    for i in range(len(free_operations)):
+        code[free_operations[i][0]] = free_operations[i][randint(1, len(free_operations[i])-1)]
 
     #print(f"Code: {code}")
     return Individual(num_operations, num_stations, code, cross_type=cross_type, mut_type=mut_type)
 
 
-def create_population(pop_size, cross_type, mut_type, num_stations, num_operations, fixed_operations):
+def create_population(pop_size, cross_type, mut_type, num_stations, num_operations, fixed_operations, free_operations):
     """
     Creates the initial population.
 
     Args:
+        free_operations: matrix of the free operations and their possible stations.
         fixed_operations: list of fixed operations
         pop_size (int): the size of the population
         cross_type (string): crossing technique
@@ -34,7 +38,7 @@ def create_population(pop_size, cross_type, mut_type, num_stations, num_operatio
     Returns:
         (list(Individual)): initial population
     """
-    pop = [gen_indv(cross_type, mut_type, num_stations, num_operations, fixed_operations) for i in range(pop_size)]
+    pop = [gen_indv(cross_type, mut_type, num_stations, num_operations, fixed_operations, free_operations) for i in range(pop_size)]
 
     return pop
 
@@ -135,7 +139,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
     if fixed_operations is None:
         fixed_operations = []
     population = rank_population(k, graph, times,
-                                 create_population(pop_size, cross_type, mut_type, num_stations, num_operations, fixed_operations),
+                                 create_population(pop_size, cross_type, mut_type, num_stations, num_operations, fixed_operations, free_operations),
                                  0)
 
     best = []
@@ -193,8 +197,11 @@ def engine(k, num_operations, graph, times, num_stations=10,
     else:
         print("No violations")
 
-
-    print(f"Code of the best solution : {[i+1 for i in population[0].code]}")
+    formatted_str = "[%s]" % ", ".join(f"{num+1:02d}" for num in population[0].code)
+    #formatted_list = [f"{num+1:02d}" for num in population[0].code]
+    print("Operation :                 [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59]")
+    print(f"Code of the best solution : {formatted_str}")
+    #print(f"Code of the best solution : {[i+1 for i in population[0].code]}")
     print(f"Best solution reached after {population[0].gen} generations.")
     print(f"Fitness of the best solution : {population[0].fitness}")
     all_station_times = population[0].get_station_time(times)
@@ -216,7 +223,8 @@ def engine(k, num_operations, graph, times, num_stations=10,
     # Populate the matrix with indices
     for index, number in enumerate(population[0].code):
         station[number].append(index)
-    print(f"Stations: {station}")
+    for i in range(num_stations):
+        print(f"Station {i}: {station[i]}")
 
     # This is to save all the parameters and results in a csv file, so it can be checked later:
 

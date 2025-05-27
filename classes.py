@@ -92,10 +92,10 @@ class Individual:
         #if gen <= 15:
         #    self.fitness = (10000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False) + max(time_operator)
         #else:
-        self.fitness = max(time_operator) + (100000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
+        self.fitness = max(time_operator) + (1000000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
 
         if max(time_op) > max(time_operator):
-            self.fitness += 50000
+            self.fitness += 500000
         if self.fitness == 0:
             self.fitness = max(time_operator)
 
