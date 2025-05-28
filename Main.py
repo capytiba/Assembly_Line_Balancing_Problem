@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
 
     engine(k, num_op, graph, times, num_stations=num_stations,
-           pop_size=10000, iterations=1000,
+           pop_size=1000, iterations=1000,
            perc_elitism=10 / 100, perc_mat=0.8, sel_type='roulette', cross_type='SP',
            mutation_rate=0.25, mut_type='random',
            fixed_operations=fixed_operations, free_operations=free_operations)

@@ -167,10 +167,15 @@ class Individual:
         ch1 = Individual(self.operations, self.stations, code=copy.deepcopy(code_c1),
                          cross_type=self.crossover.__name__[-2:],
                          mut_type=self.mutate.__name__.split('_')[-1])
-
         ch2 = Individual(self.operations, self.stations, code=copy.deepcopy(code_c2),
                          cross_type=self.crossover.__name__[-2:],
                          mut_type=self.mutate.__name__.split('_')[-1])
+
+        same_station_operations = [30, 32, 41, 44] #and +1 (should be real station)
+        for i in same_station_operations:
+            ch1.code[i] = ch1.code[i-1]
+            ch2.code[i] = ch2.code[i-1]
+
         return ch1, ch2
 
     def crossover_DP(self, indv):
@@ -190,6 +195,11 @@ class Individual:
         ch2 = Individual(self.operations, self.stations, code=code_c2,
                          cross_type=self.crossover.__name__[-2:],
                          mut_type=self.mutate.__name__.split('_')[-1])
+        same_station_operations = [30, 32, 41, 44] #and +1 (should be real station)
+        for i in same_station_operations:
+            ch1.code[i] = ch1.code[i-1]
+            ch2.code[i] = ch2.code[i-1]
+
         return ch1, ch2
 
     def crossover_UX(self, indv):
@@ -212,6 +222,11 @@ class Individual:
         ch2 = Individual(self.operations, self.stations, code=copy.deepcopy(code_c2),
                          cross_type=self.crossover.__name__[-2:],
                          mut_type=self.mutate.__name__.split('_')[-1])
+
+        same_station_operations = [30, 32, 41, 44] #and +1 (should be real station)
+        for i in same_station_operations:
+            ch1.code[i] = ch1.code[i-1]
+            ch2.code[i] = ch2.code[i-1]
 
         return ch1, ch2
 
