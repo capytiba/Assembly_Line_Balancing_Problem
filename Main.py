@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     start = time.time()
     counter = 0
-    for pop_size in [1000, 2000]: #, 4000, 8000]: # 4
+    for pop_size in [1000]: #, 4000, 8000]: # 4
         for perc_elitism in [0.01, 0.02]: #, 0.04, 0.06, 0.08, 0.10, 0.15, 0.20, 0.25, 0.30]: # 10
             for perc_mat in [0.1, 0.2]:#, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # 10
                 for sel_type in ['roulette', 'rank', 'tournament']: # 3
