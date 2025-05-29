@@ -179,7 +179,7 @@ class Individual:
         return ch1, ch2
 
     def crossover_DP(self, indv):
-        print("Crossover_DP")
+        #print("Crossover_DP")
         i = randint(0, self.operations)
         j = randint(0, self.operations)
         if i > j:
@@ -203,7 +203,7 @@ class Individual:
         return ch1, ch2
 
     def crossover_UX(self, indv):
-        print("Crossover_UX")
+        #print("Crossover_UX")
         code_c1 = [0] * self.operations
         code_c2 = [0] * self.operations
 
@@ -223,7 +223,7 @@ class Individual:
                          cross_type=self.crossover.__name__[-2:],
                          mut_type=self.mutate.__name__.split('_')[-1])
 
-        same_station_operations = [30, 32, 41, 44] #and +1 (should be real station)
+        same_station_operations = [30, 32, 41, 44] #and +1 (should be real station - 1->59)
         for i in same_station_operations:
             ch1.code[i] = ch1.code[i-1]
             ch2.code[i] = ch2.code[i-1]

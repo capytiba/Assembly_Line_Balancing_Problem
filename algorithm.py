@@ -188,10 +188,11 @@ def engine(k, num_operations, graph, times, num_stations=10,
         population = rank_population(k, graph, times, new_generation, i)
         all_station_times = population[0].get_station_time(times)
         all_operator_times = population[0].get_operator_time(times)
-        print(f"Gen {i}; Best Fitness: {population[0].fitness}; Cycle time: {max(all_operator_times)}; Max station time: {max(all_station_times)}")
-        print(f"Best individual: {population[0].code}")
+        #print(f"Gen {i}; Best Fitness: {population[0].fitness}; Cycle time: {max(all_operator_times)}; Max station time: {max(all_station_times)}")
+        #print(f"Best individual: {population[0].code}")
 
     violations = population[0].calc_violations(graph, True)
+    '''
     if violations > 0:
         print("SOLUCION NO VALIDA: ", population[0].calc_violations(graph, False))
     else:
@@ -217,14 +218,19 @@ def engine(k, num_operations, graph, times, num_stations=10,
         station[population[0].code[i]] = i
     print(f"Stations: {station}")
     """
-    # Create a matrix with 11 empty rows (0-10)
+    '''
+
+    '''
+    #Create a matrix with 11 empty rows (0-10)
     station = [[] for _ in range(num_stations)]
 
     # Populate the matrix with indices
     for index, number in enumerate(population[0].code):
-        station[number].append(index)
+        station[number].append(index+1)
     for i in range(num_stations):
         print(f"Station {i}: {station[i]}")
+    '''
+
 
     # This is to save all the parameters and results in a csv file, so it can be checked later:
 
@@ -253,7 +259,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         'best_solution': population[0].code,
     }
 
-    filename = 'resultados.csv'
+    filename = 'resultados_all2.csv'
 
     # Check if the file exists and is not empty
     file_exists = os.path.isfile(filename)
