@@ -65,6 +65,13 @@ class Individual:
                     if is_last:
                         print(f"{op+1} (station {self.code[op]+1}) should come before {neighbor+1} (station {self.code[neighbor]+1})")
                     violations += 1
+
+        for i in [30, 32, 41, 44]:
+            if self.code[i] != self.code[i-1]:
+                violations += 1
+
+
+
         return violations
 
     def calc_fitness(self, gen, graph, times, k=10, scalling_factor=0):
@@ -92,12 +99,14 @@ class Individual:
         #if gen <= 15:
         #    self.fitness = (10000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False) + max(time_operator)
         #else:
-        self.fitness = max(time_operator) + (1000000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
+        self.fitness = max(time_operator) + (100000 * self.calc_violations(graph, False)) #(k * self.calc_violations(graph, False)
 
         if max(time_op) > max(time_operator):
-            self.fitness += 500000
+            self.fitness += 50000
         if self.fitness == 0:
             self.fitness = max(time_operator)
+
+
 
         self.gen = gen
 

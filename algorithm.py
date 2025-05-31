@@ -192,7 +192,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         #print(f"Best individual: {population[0].code}")
 
     violations = population[0].calc_violations(graph, True)
-    '''
+
     if violations > 0:
         print("SOLUCION NO VALIDA: ", population[0].calc_violations(graph, False))
     else:
@@ -212,15 +212,15 @@ def engine(k, num_operations, graph, times, num_stations=10,
 
     print(f"Station times: {[all_station_times]}")
     print(f"Operator times: {[all_operator_times]}")
-    """
+
     station = [0] * num_stations
     for i in population[0].code:
         station[population[0].code[i]] = i
     print(f"Stations: {station}")
-    """
-    '''
 
-    '''
+
+
+
     #Create a matrix with 11 empty rows (0-10)
     station = [[] for _ in range(num_stations)]
 
@@ -228,8 +228,8 @@ def engine(k, num_operations, graph, times, num_stations=10,
     for index, number in enumerate(population[0].code):
         station[number].append(index+1)
     for i in range(num_stations):
-        print(f"Station {i}: {station[i]}")
-    '''
+        print(f"Station {i+1}: {station[i]}")
+
 
 
     # This is to save all the parameters and results in a csv file, so it can be checked later:

@@ -16,6 +16,20 @@ if __name__ == '__main__':
     print(f"Size of free operations: {len(free_operations)}")
     print("----------")
 
+
+
+
+
+
+    engine(k, num_op, graph, times, num_stations=num_stations,
+           pop_size=5000, iterations=1000,
+           perc_elitism=10 / 100, perc_mat=0.2, sel_type='rank', cross_type='UX',
+           mutation_rate=0.5, mut_type='random',
+           fixed_operations=fixed_operations, free_operations=free_operations)
+
+
+
+    """
     start = time.time()
     counter = 0
     for pop_size in [1000]: #, 4000, 8000]: # 4
@@ -32,3 +46,4 @@ if __name__ == '__main__':
                             print(f"Calculation: {counter} - Time: {time.time() - start}")
                             start = time.time()
                             counter += 1
+    """
