@@ -192,12 +192,13 @@ def engine(k, num_operations, graph, times, num_stations=10,
         #print(f"Best individual: {population[0].code}")
 
     violations = population[0].calc_violations(graph, True)
-
+    '''
     if violations > 0:
         print("SOLUCION NO VALIDA: ", population[0].calc_violations(graph, False))
     else:
         print("No violations")
-
+    
+    
     formatted_str = "[%s]" % ", ".join(f"{num+1:02d}" for num in population[0].code)
     #formatted_list = [f"{num+1:02d}" for num in population[0].code]
     print("Operation :                 [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59]")
@@ -205,14 +206,18 @@ def engine(k, num_operations, graph, times, num_stations=10,
     #print(f"Code of the best solution : {[i+1 for i in population[0].code]}")
     print(f"Best solution reached after {population[0].gen} generations.")
     print(f"Fitness of the best solution : {population[0].fitness}")
+    '''
     all_station_times = population[0].get_station_time(times)
     all_operator_times = population[0].get_operator_time(times)
-    print(f"Cycle time of the best solution: {max(all_operator_times)}")
 
+    '''
+    print(f"Cycle time of the best solution: {max(all_operator_times)}")
+    
 
     print(f"Station times: {[all_station_times]}")
     print(f"Operator times: {[all_operator_times]}")
 
+    
     station = [0] * num_stations
     for i in population[0].code:
         station[population[0].code[i]] = i
@@ -220,7 +225,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
 
 
 
-
+    
     #Create a matrix with 11 empty rows (0-10)
     station = [[] for _ in range(num_stations)]
 
@@ -229,7 +234,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         station[number].append(index+1)
     for i in range(num_stations):
         print(f"Station {i+1}: {station[i]}")
-
+    '''
 
 
     # This is to save all the parameters and results in a csv file, so it can be checked later:
@@ -252,6 +257,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         #'fixed_operations': fixed_operations,
         #'free_operations': free_operations,
         'best_solution_fitness': population[0].fitness,
+        'solution_generation': population[0].gen,
         'cycle_time': max(all_operator_times),
         'station_times': all_station_times,
         'operator_times': all_operator_times,
@@ -259,7 +265,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         'best_solution': population[0].code,
     }
 
-    filename = 'resultados_all2.csv'
+    filename = 'resultados_all6.csv'
 
     # Check if the file exists and is not empty
     file_exists = os.path.isfile(filename)
@@ -309,7 +315,7 @@ def read_file(file_name):
         for k in range(operations):
             times.append(int(fd.readline()))
             graph[k] = []
-        while (True):
+        while True:
             line = fd.readline()
             if not line:
                 break

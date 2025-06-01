@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
 
 
-
+    """
     engine(k, num_op, graph, times, num_stations=num_stations,
            pop_size=5000, iterations=1000,
            perc_elitism=10 / 100, perc_mat=0.2, sel_type='rank', cross_type='UX',
@@ -30,13 +30,14 @@ if __name__ == '__main__':
 
 
     """
+    start_all = time.time()
     start = time.time()
     counter = 0
-    for pop_size in [1000]: #, 4000, 8000]: # 4
-        for perc_elitism in [0.01, 0.02]: #, 0.04, 0.06, 0.08, 0.10, 0.15, 0.20, 0.25, 0.30]: # 10
-            for perc_mat in [0.1, 0.2]:#, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # 10
+    for pop_size in [1000, 2000, 4000, 8000]: #, 4000, 8000]: # 4
+        for perc_elitism in [0.05, 0.1, 0.15]: #, 0.04, 0.06, 0.08, 0.10, 0.15, 0.20, 0.25, 0.30]: # 10
+            for perc_mat in [0.05, 0.1]:#, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # 10
                 for sel_type in ['roulette', 'rank', 'tournament']: # 3
-                    for mutation_rate in [0.01, 0.025]:#, 0.04, 0.05, 0.06, 0.075, 0.09, 0.1, 0.12, 0.14, 0.17, 0.2, 0.35, 0.5, 0.75, 1.0]: # 16
+                    for mutation_rate in [0.05, 0.10, 0.15]:#, 0.04, 0.05, 0.06, 0.075, 0.09, 0.1, 0.12, 0.14, 0.17, 0.2, 0.35, 0.5, 0.75, 1.0]: # 16
                         for cross_type in ['SP', 'DP', 'UX']: # 3
                             engine(k, num_op, graph, times, num_stations=num_stations,
                                    pop_size=pop_size, iterations=1000,
@@ -46,4 +47,6 @@ if __name__ == '__main__':
                             print(f"Calculation: {counter} - Time: {time.time() - start}")
                             start = time.time()
                             counter += 1
-    """
+
+    print(f"Total time: {time.time() - start_all}")
+
