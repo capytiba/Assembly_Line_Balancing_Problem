@@ -156,7 +156,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         best.append(population[0].fitness)
         mean.append(reduce(lambda x, y: x + y.fitness, population, 0)/pop_size)
         # Break after:
-        if population[0].gen < i - 25:
+        if population[0].gen < i - 15:
             break
 
         # Elitism
@@ -190,6 +190,8 @@ def engine(k, num_operations, graph, times, num_stations=10,
         all_operator_times = population[0].get_operator_time(times)
         #print(f"Gen {i}; Best Fitness: {population[0].fitness}; Cycle time: {max(all_operator_times)}; Max station time: {max(all_station_times)}")
         #print(f"Best individual: {population[0].code}")
+
+
 
     violations = population[0].calc_violations(graph, True)
     '''
@@ -265,7 +267,7 @@ def engine(k, num_operations, graph, times, num_stations=10,
         'best_solution': population[0].code,
     }
 
-    filename = 'resultados_all6.csv'
+    filename = 'resultados_all10.csv'
 
     # Check if the file exists and is not empty
     file_exists = os.path.isfile(filename)
