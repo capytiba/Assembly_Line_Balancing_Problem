@@ -34,11 +34,11 @@ if __name__ == '__main__':
     start = time.time()
     counter = 0
     while True:
-        for pop_size in [4000]: #, 4000, 8000]: # 4
-            for perc_elitism in [0.05]: #, 0.04, 0.06, 0.08, 0.10, 0.15, 0.20, 0.25, 0.30]: # 10
-                for perc_mat in [0.05, 0.1, 0.15, 0.2]: #np.arange(0.05, 0.55, 0.05):  #, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # 10
+        for pop_size in [8000]:
+            for perc_elitism in [0.05]:
+                for perc_mat in [0.1]: #np.arange(0.05, 0.55, 0.05):  #, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]: # 10
                     for sel_type in ['tournament']: # 3 'roulette', 'rank',
-                        for mutation_rate in np.arange(0.05, 1.05, 0.05):#, 0.04, 0.05, 0.06, 0.075, 0.09, 0.1, 0.12, 0.14, 0.17, 0.2, 0.35, 0.5, 0.75, 1.0]: # 16
+                        for mutation_rate in [0.5, 0.1, 0.15]: #np.arange(0.05, 1.05, 0.05):#, 0.04, 0.05, 0.06, 0.075, 0.09, 0.1, 0.12, 0.14, 0.17, 0.2, 0.35, 0.5, 0.75, 1.0]: # 16
                             for cross_type in ['UX']: # 3 'SP', 'DP',
                                 engine(k, num_op, graph, times, num_stations=num_stations,
                                        pop_size=pop_size, iterations=1000,
@@ -48,7 +48,7 @@ if __name__ == '__main__':
                                 print(f"Calculation: {counter} - Time: {time.time() - start} - Time taken: {time.time() - start_all}")
                                 start = time.time()
                                 counter += 1
-        if time.time() - start_all > 23000:
+        if time.time() - start_all > 0:
             break
 
     print(f"Total time: {time.time() - start_all}")
